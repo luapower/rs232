@@ -100,7 +100,7 @@ if ffi.abi'win' then
 		local f, err, errcode = fs.open('//./'..devname, 'w')
 		if not f then return nil, err, errcode end
 
-		C.SetupComm(f.handle, 64, 64)
+		C.SetupComm(f.handle, 1200, 1200)
 
 		local timeouts = ffi.new'COMMTIMEOUTS'
 		timeouts.ReadIntervalTimeout = 0xffffffff
