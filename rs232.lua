@@ -97,7 +97,7 @@ if ffi.abi'win' then
 	function rs.open(devname, baud_rate)
 		baud_rate = baud_rate or rs.default_baud_rate
 
-		local f, err, errcode = fs.open('//./'..devname, 'w')
+		local f, err, errcode = fs.open('//./'..devname, 'r+')
 		if not f then return nil, err, errcode end
 
 		C.SetupComm(f.handle, 1200, 1200)
@@ -267,15 +267,14 @@ else
 
 end
 
-if not ... then
 
+if not ... then
 	require'pp'(rs.ports())
 	local dev = ffi.abi'win' and 'COM4' or 'ttyUSB0'
 	local f = assert(rs.open(dev))
 	print('opened '..dev)
 	f:close()
-	print('closed '..dev)
-
-	return rs
-
 end
+
+
+return rs
